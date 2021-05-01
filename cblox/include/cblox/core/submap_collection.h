@@ -171,6 +171,8 @@ class SubmapCollection : public SubmapCollectionInterface {
       const std::string& file_path,
       typename SubmapCollection<SubmapType>::Ptr* submap_collection_ptr);
 
+  const std::map<SubmapID, typename SubmapType::Ptr> getIdsToSubmaps() const;
+
  private:
   // TODO(alexmillane): Get some concurrency guards
 

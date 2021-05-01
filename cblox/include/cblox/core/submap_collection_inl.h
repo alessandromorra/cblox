@@ -116,7 +116,7 @@ void SubmapCollection<SubmapType>::addSubmap(
     const typename SubmapType::Ptr submap) {
   // Check ID not already in the collection
   const SubmapID submap_id = submap->getID();
-  CHECK(!exists(submap_id));
+  CHECK(!exists(submap_id)) << "submap id: " << submap_id;
   // Add and activate
   id_to_submap_.emplace(submap_id, std::move(submap));
   active_submap_id_ = submap_id;
@@ -466,6 +466,12 @@ size_t SubmapCollection<SubmapType>::getMemorySize() const {
     size += (id_submap_pair.second)->getMemorySize();
   }
   return size;
+}
+
+template <typename SubmapType>
+const std::map<SubmapID, typename SubmapType::Ptr>
+SubmapCollection<SubmapType>::getIdsToSubmaps() const {
+  return id_to_submap_;
 }
 
 }  // namespace cblox
